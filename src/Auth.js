@@ -37,6 +37,7 @@ export default function ({ setToken }) {
     e.preventDefault();
     const username = input.username
     const password = input.password
+    console.log("Submit")
     const token = await loginUser({
         username,
         password
