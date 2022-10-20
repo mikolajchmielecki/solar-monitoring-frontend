@@ -1,17 +1,27 @@
 import React, { useState } from "react"
-import PropTypes from 'prop-types'
+import * as Constants from '../constants/constants'
 
 
 async function loginUser(credentials) {
-    return fetch('http://34.116.171.10:9285/api/v1/user/authenticate', {
+  return fetch(Constants.SERVER_URL + 'user/authenticate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+}
+
+async function registerUser(userProps) {
+  return fetch(Constants.SERVER_URL + 'user/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
-   }
+      body: JSON.stringify(userProps)
+      })
+    .then(data => data.json())
+}
 
 export default function ({ setToken }) {
   const [authMode, setAuthMode] = useState("signin")
@@ -33,25 +43,33 @@ export default function ({ setToken }) {
     secondName: ''
   })
 
+  const [loginFailed, setLoginFailed] = useState(false)
+
+
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const username = input.username
-    const password = input.password
-    console.log("Submit")
-    const token = await loginUser({
-        username,
-        password
-    });
-    console.log(token)
-    setToken(token);
+    const response = await loginUser(input, setLoginFailed);
+    if (!response.ok) {
+      setLoginFailed(true)
+    } else {
+      console.log(response.json())
+      setToken(response.json().token)
+    }
+  }
+
+  const handleRegistrationSubmit = async e => {
+    e.preventDefault();
+    const response = await registerUser(input);
+    console.log(response)
   }
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin")
     setInput(prev => ({
         ...prev,
-        ["username"]: "",
-        ["password"]: ""
+        username: "",
+        password: ""
       }));
   }
 
@@ -116,6 +134,9 @@ export default function ({ setToken }) {
                 Zarejestruj się
               </span>
             </div>
+            {loginFailed === true &&
+              <div>Niepoprawe logowanie</div>
+            }
             <div className="form-group mt-3">
               <label>Login:</label>
               <input
@@ -123,6 +144,7 @@ export default function ({ setToken }) {
                 className="form-control mt-1"
                 placeholder="Wpisz login"
                 value={input.username}
+                name="username"
                 onChange={onInputChange}
               />
             </div>
@@ -133,6 +155,7 @@ export default function ({ setToken }) {
                 className="form-control mt-1"
                 placeholder="Wpisz hasło"
                 value={input.password}
+                name="password"
                 onChange={onInputChange}
               />
             </div>
@@ -149,7 +172,7 @@ export default function ({ setToken }) {
 
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form">
+      <form className="Auth-form" onSubmit={handleRegistrationSubmit}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Zarejestruj się</h3>
           <div className="text-center">
@@ -164,6 +187,8 @@ export default function ({ setToken }) {
               type="text"
               className="form-control mt-1"
               placeholder="Wpisz imię"
+              name="firstName"
+              value={input.firstName}
               onChange={onInputChange}
             />
           </div>
@@ -173,6 +198,8 @@ export default function ({ setToken }) {
               type="text"
               className="form-control mt-1"
               placeholder="Wpisz nazwisko"
+              name="secondName"
+              value={input.secondName}
               onChange={onInputChange}
             />
           </div>
@@ -182,6 +209,8 @@ export default function ({ setToken }) {
               type="email"
               className="form-control mt-1"
               placeholder="Wpisz email"
+              name="email"
+              value={input.email}
               onChange={onInputChange}
             />
           </div>
@@ -191,6 +220,8 @@ export default function ({ setToken }) {
               type="text"
               className="form-control mt-1"
               placeholder="Wpisz login"
+              name="username"
+              value={input.username}
               onChange={onInputChange}
             />
           </div>
@@ -200,6 +231,8 @@ export default function ({ setToken }) {
               type="password"
               className="form-control mt-1"
               placeholder="Wpisz hasło"
+              name="password"
+              value={input.password}
               onChange={onInputChange}
             />
           </div>
@@ -209,6 +242,9 @@ export default function ({ setToken }) {
               type="password"
               className="form-control mt-1"
               placeholder="Powierdź hasło"
+              name="confirmPassword"
+              value={input.confirmPassword}
+              onChange={onInputChange}
             />
           </div>
           <div className="d-grid gap-2 mt-3">

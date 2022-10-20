@@ -1,24 +1,25 @@
 import React, { useState} from 'react';
-import {Helmet} from 'react-helmet';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Auth from "./Auth"
+import Auth from "./components/Auth"
 
 function App() {
   const [token, setToken] = useState();
 
-  return (
-    <div className="application">
-      if(!token) {
+  if(!token) {
+    return (
+      <div className="application">
         <Auth setToken={setToken} />
-      } else {
-        <BrowserRouter>
-        </BrowserRouter>
-      }
-    </div>
-    
-  )
+      </div>
+    )
+  } else {
+    return (
+      <div className="application">
+        Zalogowany
+      </div>
+    )
+  }
 }
 
 export default App
