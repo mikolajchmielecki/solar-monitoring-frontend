@@ -97,7 +97,6 @@ export default function ({ setToken }) {
   }
 
   function checkNoErrors() {
-    console.log(!error.firstName && !error.secondName && !error.email && !error.password && !error.username)
     return !error.firstName && !error.secondName && !error.email && !error.password && !error.username
   }
 

@@ -1,12 +1,12 @@
 import React, { useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css"
+import "./Main.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Auth from "./components/Auth"
+import App from "./components/App"
 
-function App() {
+function Main() {
   const [token, setToken] = useState();
-
   if(!token) {
     return (
       <div className="application">
@@ -15,11 +15,9 @@ function App() {
     )
   } else {
     return (
-      <div className="application">
-        Zalogowany
-      </div>
+      <App token={token} setToken={setToken}/>
     )
   }
 }
 
-export default App
+export default Main
