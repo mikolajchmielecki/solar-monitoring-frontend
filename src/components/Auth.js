@@ -162,7 +162,7 @@ export default function ({ setToken }) {
  
   if (authMode === "signin") {
     return (
-      <div>
+      <div className="login-page">
         {loginFailed===true && 
           <Alert text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
         }
