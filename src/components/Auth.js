@@ -218,7 +218,7 @@ export default function ({ setToken }) {
   }
 
   return (
-    <div>
+    <div className="login-page">
       {registerFailed===true && 
         <Alert text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
       }

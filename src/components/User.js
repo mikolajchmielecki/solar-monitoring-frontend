@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 export default function (props) {
     return (
-      <Card className="center-card shadow" style={{ width: '30rem' }}>
+      <Card className="center-card edit-card shadow">
         <Card.Header>Użytkownik</Card.Header>
         <Card.Body>
           <Form>

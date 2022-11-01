@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import React from "react";
 import {
     Routes,
@@ -19,10 +20,13 @@ export default function ({token, setToken}) {
             <Container>
             <Navbar.Brand href="about">Solar Monitoring</Navbar.Brand>
             <Nav className="me-auto">
-                <Nav.Link href="dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="user">Użytkownik</Nav.Link>
+                <Nav.Link href="dashboard">Pomiary</Nav.Link>
                 <Nav.Link href="counter">Licznik</Nav.Link>
-                <Nav.Link href="inverters">Falowniki</Nav.Link>
+                <NavDropdown title="Falowniki">
+                    <NavDropdown.Item href="inverters">Lista falowników</NavDropdown.Item>
+                    <NavDropdown.Item href="add-inverter">Dodaj falownik</NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link href="user">Użytkownik</Nav.Link>
             </Nav>
             <Nav>
                 <Nav.Link onClick={() => {setToken("")}}>Wyloguj</Nav.Link>
@@ -35,6 +39,7 @@ export default function ({token, setToken}) {
             <Route path="/user" element={<User/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/inverters" element={<Inverters/>} />
+            <Route path="/add-inverter" element={<Inverters/>} />
             <Route path="/counter" element={<Counter/>} />
         </Routes>
     </div>

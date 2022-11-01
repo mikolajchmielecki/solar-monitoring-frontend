@@ -58,8 +58,29 @@ label {
 }
 
 .card {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-card {
+  width: 30rem;
+}
+
+.grey-text {
+  color: rgb(183, 181, 181);
+  font-weight: normal !important;
+  font-size: 1rem;
+}
+
+.about-content {
   margin-left: 10vw;
   margin-right: 10vw;
+}
+
+.add-button {
+  position: absolute;
+  top: 60px;
+  right: 10px;
 }
