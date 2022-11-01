@@ -4,8 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 import {
     Routes,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
 import About from "./About";
 import Counter from "./Counter";
@@ -15,7 +14,7 @@ import Dashboard from "./Dashboard";
 
 export default function ({token, setToken}) {
     return (
-    <div>
+    <div className="content">
         <Navbar bg="primary" variant="dark">
             <Container>
             <Navbar.Brand href="about">Solar Monitoring</Navbar.Brand>
