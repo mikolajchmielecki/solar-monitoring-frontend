@@ -8,11 +8,11 @@ export default function (props) {
         <Card.Header>
             <Row xs={2} className='align-items-center'>
             <Col>Falownik</Col>
-            <Col>
-            <Button variant="primary" type="submit">
+            <Col className="justify-content-end">
+            <Button variant="primary" size="sm">
               Edytuj
             </Button>{' '}
-            <Button variant="danger">
+            <Button variant="danger" size="sm">
               Usuń
             </Button>
             </Col>

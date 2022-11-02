@@ -1,6 +1,4 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import { useState } from "react"
 import * as Constants from '../constants/constants'
 
@@ -14,13 +12,14 @@ export default function (props) {
   }
 
   return (
+    <Container>
     <Card className="center-card edit-card shadow">
       <Card.Header>Dodaj falownik</Card.Header>
       <Card.Body>
         <Form>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Nazwa:</Form.Label>
-            <Form.Control type="text" placeholder="Wprowadź imię" />
+            <Form.Control type="text" placeholder="Wprowadź nazwę" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="type">
             <Form.Label>Marka:</Form.Label>
@@ -59,4 +58,5 @@ export default function (props) {
         </Form>
       </Card.Body>
     </Card>
+    </Container>
     )}

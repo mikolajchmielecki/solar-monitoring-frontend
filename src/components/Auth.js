@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import * as Constants from '../constants/constants'
 import Alert from "./Alert"
+import { Container } from "react-bootstrap"
 
 
 
@@ -163,6 +164,7 @@ export default function ({ setToken }) {
   if (authMode === "signin") {
     return (
       <div className="login-page">
+        <Container>
         {loginFailed===true && 
           <Alert text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
         }
@@ -213,12 +215,14 @@ export default function ({ setToken }) {
             </div>
           </form>
         </div>
+        </Container>
       </div>
     )
   }
 
   return (
     <div className="login-page">
+      <Container>
       {registerFailed===true && 
         <Alert text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
       }
@@ -324,6 +328,7 @@ export default function ({ setToken }) {
           </div>
         </form>
       </div>
+      </Container>
     </div>
   )
 }

@@ -1,9 +1,8 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 
 export default function (props) {
     return (
+      <Container>
         <Card className="center-card edit-card shadow">
           <Card.Header>Licznik energii elektrycznej</Card.Header>
           <Card.Body>
@@ -26,4 +25,5 @@ export default function (props) {
             </Form>
           </Card.Body>
         </Card>    
+        </Container>
         )}
