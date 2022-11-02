@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap';
 
 export default function (props) {
     return (
-      <Container className='inverters-container'>
+      <Container>
       <Row xs={1} md={2} className='justify-content-md-center'>
       {Array.from({ length: 4 }).map((_, idx) => (
         <Col>

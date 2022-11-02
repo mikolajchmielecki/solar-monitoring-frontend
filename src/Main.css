@@ -2,6 +2,13 @@
   background-color: #0d6efd;
 }
 
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
 .content {
   background-color: #6c9cff;
   width: 100vw;
@@ -65,7 +72,7 @@ label {
 }
 
 .edit-card {
-  width: 30rem;
+  max-width: 30rem;
 }
 
 .grey-text {
@@ -89,9 +96,4 @@ label {
   max-width: 50rem;
 }
 
-.inverters-container {
-    display: flex;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: center;
-}
+

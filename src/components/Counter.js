@@ -2,8 +2,8 @@ import { Form, Button, Card, Container } from 'react-bootstrap';
 
 export default function (props) {
     return (
-      <Container>
-        <Card className="center-card edit-card shadow">
+      <Container fluid="md">
+        <Card className="edit-card shadow">
           <Card.Header>Licznik energii elektrycznej</Card.Header>
           <Card.Body>
             <Form>

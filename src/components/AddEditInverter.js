@@ -13,7 +13,7 @@ export default function (props) {
 
   return (
     <Container>
-    <Card className="center-card edit-card shadow">
+    <Card className="edit-card shadow">
       <Card.Header>Dodaj falownik</Card.Header>
       <Card.Body>
         <Form>
