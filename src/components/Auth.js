@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap"
 
 
 
-export default function ({ setToken }) {
+export default function Auth ({ setToken }) {
   const [authMode, setAuthMode] = useState("signin")
   const [input, setInput] = useState({
     username: '',
@@ -84,7 +84,7 @@ export default function ({ setToken }) {
     if (!input.username || !input.password || !input.firstName || !input.secondName || !input.email || !input.confirmPassword || !checkNoErrors()) {
       setCheckInputsAlert(true)
     } else {
-      const response = await registerUser(input);
+      await registerUser(input);
     }
   }
 

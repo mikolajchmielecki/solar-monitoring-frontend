@@ -1,6 +1,6 @@
 import { Form, Button, Card, Container } from 'react-bootstrap';
 
-export default function (props) {
+export default function User (props) {
     return (
       <Container fluid="md">
       <Card className="edit-card shadow">

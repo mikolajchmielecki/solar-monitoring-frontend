@@ -1,12 +1,8 @@
-import Button from 'react-bootstrap/Button';
 import InverterCard from './InverterCard';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { Container } from 'react-bootstrap';
+import { Container, Col, Row } from 'react-bootstrap';
 
 
-export default function (props) {
+export default function Inverters (props) {
     return (
       <Container>
       <Row xs={1} md={2} className='justify-content-md-center'>

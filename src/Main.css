@@ -10,7 +10,7 @@
 }
 
 .content {
-  background-color: #6c9cff;
+  background-color: #d2ddf5;
   width: 100vw;
   height: 100vh;
   overflow:auto;  
@@ -76,14 +76,13 @@ label {
 }
 
 .grey-text {
-  color: rgb(183, 181, 181);
+  color: rgb(128, 128, 128);
   font-weight: normal !important;
   font-size: 1rem;
 }
 
-.about-content {
-  margin-left: 10vw;
-  margin-right: 10vw;
+.about-card {
+  max-width: 40rem;
 }
 
 .add-button {
@@ -96,4 +95,10 @@ label {
   max-width: 50rem;
 }
 
+.nav-item, #nav-dropdown {
+  color: rgb(235, 235, 235);
+}
 
+.nav-item:hover, #nav-dropdown:hover {
+  color: rgb(255, 255, 255);
+}

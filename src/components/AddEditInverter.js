@@ -2,7 +2,7 @@ import { Form, Button, Card, Container } from 'react-bootstrap';
 import { useState } from "react"
 import * as Constants from '../constants/constants'
 
-export default function (props) {
+export default function AddEditInverter (props) {
 
   
   const [type, setType] = useState("solax")

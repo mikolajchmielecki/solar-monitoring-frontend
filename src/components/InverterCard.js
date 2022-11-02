@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import { Button, Row, Col } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export default function (props) {
+export default function InverterCard (props) {
     return (
         <Card>
         <Card.Header>
