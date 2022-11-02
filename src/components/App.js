@@ -12,11 +12,12 @@ import Counter from "./Counter";
 import User from "./User";
 import Inverters from "./Inverters";
 import Dashboard from "./Dashboard";
+import AddEditInverter from './AddEditInverter';
 
 export default function ({token, setToken}) {
     return (
     <div className="content">
-        <Navbar bg="primary" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>
             <Navbar.Brand href="about">Solar Monitoring</Navbar.Brand>
             <Nav className="me-auto">
@@ -39,7 +40,7 @@ export default function ({token, setToken}) {
             <Route path="/user" element={<User/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/inverters" element={<Inverters/>} />
-            <Route path="/add-inverter" element={<Inverters/>} />
+            <Route path="/add-inverter" element={<AddEditInverter/>} />
             <Route path="/counter" element={<Counter/>} />
         </Routes>
     </div>
