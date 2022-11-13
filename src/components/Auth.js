@@ -98,7 +98,7 @@ export default function Auth ({ setToken }) {
   }
 
   function checkNoErrors() {
-    return !error.firstName && !error.secondName && !error.email && !error.password && !error.username
+    return !error.firstName && !error.secondName && !error.email && !error.password && !error.username && !error.confirmPassword
   }
 
   const onInputChange = e => {
