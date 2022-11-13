@@ -2,7 +2,6 @@ import { Form, Button, Card, Container, Modal } from 'react-bootstrap';
 import React, { useState, useEffect } from "react"
 import SpinnerCard from './SpinnerCard';
 import * as Constants from '../constants/constants'
-import { propTypes } from 'react-bootstrap/esm/Image';
 import Alert from './Alert';
 
 export default function User ({token, setToken}) {
@@ -44,11 +43,8 @@ export default function User ({token, setToken}) {
         setIsLoading(false)
         return response.json();
       }
-      return Promise.reject(response);
+      return response.json().then((errorObj) => setSaveFailed(errorObj.response));
     })
-    .catch((response) => {
-      console.log("error")
-    });
   }
 
 
@@ -212,17 +208,17 @@ export default function User ({token, setToken}) {
       return (
         <div>
         <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} animation={true}>
-        <Modal.Header closeButton />
-        <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowConfirmation(false)}>
-            Nie
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Tak, usuń konto
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header closeButton />
+          <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => setShowConfirmation(false)}>
+              Nie
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Tak, usuń konto
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Container fluid="md">
         {saveFailed && 
           <Alert text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>
@@ -283,7 +279,7 @@ export default function User ({token, setToken}) {
                   {error.username && <span className='err'>{error.username}</span>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="oldPassword">
-                <Form.Label>Hasło:</Form.Label>
+                <Form.Label>Stare hasło:</Form.Label>
                 <Form.Control 
                   type="password" 
                   placeholder="Wprowadź stare hasło" 
@@ -294,7 +290,7 @@ export default function User ({token, setToken}) {
                   {error.oldPassword && <span className='err'>{error.oldPassword}</span>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="newPassword">
-                <Form.Label>Hasło:</Form.Label>
+                <Form.Label>Nowe hasło:</Form.Label>
                 <Form.Control 
                   type="password" 
                   placeholder="Wprowadź nowe hasło" 
