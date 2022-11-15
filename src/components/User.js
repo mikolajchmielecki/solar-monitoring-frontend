@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import * as Constants from '../constants/constants';
 import Alert from './Alert';
 import LoadingModal from './LoadingModal';
+import Password from './Password';
 
 export default function User ({token, setToken}) {
   const [loading, setLoading] = useState(false);
@@ -282,7 +283,7 @@ export default function User ({token, setToken}) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="oldPassword">
               <Form.Label>Stare hasło:</Form.Label>
-              <Form.Control 
+              <Password
                 type="password" 
                 placeholder="Wprowadź stare hasło" 
                 name="oldPassword"
@@ -293,7 +294,7 @@ export default function User ({token, setToken}) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="newPassword">
               <Form.Label>Nowe hasło:</Form.Label>
-              <Form.Control 
+              <Password
                 type="password" 
                 placeholder="Wprowadź nowe hasło" 
                 name="newPassword"
@@ -304,7 +305,7 @@ export default function User ({token, setToken}) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="confirmPassword">
               <Form.Label>Potwierdź hasło:</Form.Label>
-              <Form.Control 
+              <Password
                 type="password" 
                 placeholder="Potwierdź hasło" 
                 name="confirmPassword"

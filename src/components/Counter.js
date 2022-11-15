@@ -2,6 +2,7 @@ import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import LoadingModal from './LoadingModal';
 import { useState, useEffect } from 'react'; 
 import * as Constants from '../constants/constants';
+import Password from './Password';
 
 export default function Counter ({token}) {
   
@@ -117,8 +118,7 @@ export default function Counter ({token}) {
               </Form.Group>
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Hasło:</Form.Label>
-                <Form.Control 
-                  type="password" 
+                <Password
                   placeholder="Wprowadź hasło" 
                   name="password"
                   value={counter.password || ""}
@@ -128,7 +128,13 @@ export default function Counter ({token}) {
               </Form.Group>
               <Form.Group className="mb-3" controlId="confirmPassword">
                 <Form.Label>Potwierdź hasło:</Form.Label>
-                <Form.Control type="password" placeholder="Potwierdź hasło" />
+                <Password 
+                  placeholder="Wprowadź hasło" 
+                  name="confirmPassword"
+                  value={counter.confirmPassword || ""}
+                  onChange={onInputChange}
+                  onBlur={validateInput}/>
+                {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
               </Form.Group>
               <Button variant="primary" type="submit">
                 Zapisz

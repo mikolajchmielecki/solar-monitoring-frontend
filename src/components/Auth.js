@@ -3,6 +3,7 @@ import * as Constants from '../constants/constants'
 import Alert from "./Alert"
 import { Container } from "react-bootstrap"
 import LoadingModal from "./LoadingModal"
+import Password from "./Password"
 
 
 
@@ -209,15 +210,12 @@ export default function Auth ({ setToken }) {
               </div>
               <div className="form-group mt-3">
                 <label>Hasło:</label>
-                <input
-                  type="password"
-                  className="form-control mt-1"
+                <Password
                   placeholder="Wpisz hasło"
                   value={input.password}
                   name="password"
                   onChange={onInputChange}
-                  onBlur={validateInput}>
-                </input>
+                  onBlur={validateInput} />
                 {error.password && <span className='err'>{error.password}</span>}
               </div>
               <div className="d-grid gap-2 mt-3">
