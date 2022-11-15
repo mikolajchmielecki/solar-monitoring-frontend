@@ -12,7 +12,7 @@ export default function InverterCard ({id, inverter, handleDelete}) {
   const valid = inverter.inverterParameters.status !== "COMMUNICATION_ERROR"
 
     return (
-        <Card>
+        <Card style={{minWidth: '20em'}}>
         <Card.Header>
             <Row xs={2} className='align-items-center'>
             <Col>{inverter.name}</Col>

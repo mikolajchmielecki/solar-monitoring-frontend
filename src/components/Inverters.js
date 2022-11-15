@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import * as Constants from '../constants/constants';
 import LoadingModal from './LoadingModal';
 import Alert from './Alert';
+import ConfirmDelete from './ConfirmDelete';
 
 export default function Inverters ({token}) {
 
@@ -11,6 +12,8 @@ export default function Inverters ({token}) {
   const [failed, setFailed] = useState("");
   const [inverters, setInverters] = useState();
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [id, setId] = useState();
   async function getInverters() {
     return fetch(Constants.SERVER_URL + 'inverter/all', {
       method: 'GET',
@@ -59,15 +62,17 @@ export default function Inverters ({token}) {
 
 
   const handleDelete = async e => {
+    setShowConfirmation(false)
     setLoading(true)
-    const response = await deleteInverter(e.target.value)
+    const response = await deleteInverter(id)
     const fetchData = async () => {
       const inverters =  await getInverters();
       setInverters(inverters);
+      setDeleteSuccess(true)
     }
     setLoading(true)
     fetchData();
-    setDeleteSuccess(true)
+    
   }
 
   return (
@@ -80,12 +85,13 @@ export default function Inverters ({token}) {
       }
 
       {loadingModal}
+      <ConfirmDelete showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDelete={handleDelete} name="falownik"/>
       {!loading &&
-      <Container show={inverters}>
+      <Container  show={inverters}>
         <Row xs={1} md={2} className='justify-content-md-center'>
           {inverters!==undefined  && inverters.map(inverter => 
             <Col key={inverter.id}>
-              <InverterCard id={inverter.id} inverter={inverter} handleDelete={handleDelete}/>
+              <InverterCard id={inverter.id} inverter={inverter} handleDelete={e => {setShowConfirmation(true); setId(inverter.id)}}/>
             </Col>
             )}
           

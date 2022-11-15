@@ -4,6 +4,7 @@ import * as Constants from '../constants/constants';
 import Alert from './Alert';
 import LoadingModal from './LoadingModal';
 import Password from './Password';
+import ConfirmDelete from './ConfirmDelete';
 
 export default function User ({token, setToken}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
@@ -209,18 +210,7 @@ export default function User ({token, setToken}) {
     return (
       <div>
       {loadingModal}
-      <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} animation={true}>
-        <Modal.Header closeButton />
-        <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowConfirmation(false)}>
-            Nie
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Tak, usuń konto
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ConfirmDelete showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDelete={handleDelete} name="konto"/>
       <Container fluid="md">
       {saveFailed && 
         <Alert text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>

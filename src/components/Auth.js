@@ -238,7 +238,7 @@ export default function Auth ({ setToken }) {
 
   return (
     <div className="login-page">
-      <LoadingModal loading={loading} />
+      {loadingModal}
       <Container>
       {registerFailed===true && 
         <Alert text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
