@@ -40,8 +40,8 @@ export default function App ({token, setToken}) {
             <Route path="/user" element={<User token={token} setToken={setToken}/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/inverters" element={<Inverters token={token}/>} />
-            <Route path="/inverter" element={<AddEditInverter/>} />
-            <Route path="/inverter/:id" element={<AddEditInverter/>} />
+            <Route path="/inverter" element={<AddEditInverter token={token}/>} />
+            <Route path="/inverter/:id" element={<AddEditInverter token={token}/>} />
             <Route path="/counter" element={<Counter token={token}/>} />
         </Routes>
     </div>

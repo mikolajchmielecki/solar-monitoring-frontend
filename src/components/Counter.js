@@ -104,7 +104,7 @@ export default function Counter ({token}) {
       switch (name) {
         case "login":
           if (!value) {
-            stateObj[name] = "Proszę login";
+            stateObj[name] = "Proszę wprowadzić login";
           }
           break;
 
