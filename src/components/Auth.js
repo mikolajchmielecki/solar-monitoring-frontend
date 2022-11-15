@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import * as Constants from '../constants/constants'
 import Alert from "./Alert"
 import { Container } from "react-bootstrap"
+import LoadingModal from "./LoadingModal"
 
 
 
@@ -29,6 +30,7 @@ export default function Auth ({ setToken }) {
   const [registerFailed, setRegisterFailed] = useState(false)
   const [registerPass, setRegisterPass] = useState(false)
   const [checkInputsAlert, setCheckInputsAlert] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   function loginUser(credentials) {
     return fetch(Constants.SERVER_URL + 'user/authenticate', {
@@ -46,6 +48,7 @@ export default function Auth ({ setToken }) {
     })
     .catch((response) => {
       setLoginFailed(true)
+      setLoading(false)
     });
   }
   
@@ -66,25 +69,30 @@ export default function Auth ({ setToken }) {
         })
         .catch((response) => {
           setRegisterFailed(true)
+          setLoading(false)
         });
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!input.username || !input.password || !checkNoErrors()) {
+    if (!input.username || !input.password || !checkNoErrorsLogin()) {
       setCheckInputsAlert(true)
     } else {
+      setLoading(true)
       const response = await loginUser(input, setLoginFailed);
       setToken(response.token)
+      setLoading(false)
     }
   }
 
   const handleRegistrationSubmit = async e => {
     e.preventDefault();
-    if (!input.username || !input.password || !input.firstName || !input.secondName || !input.email || !input.confirmPassword || !checkNoErrors()) {
+    if (!input.username || !input.password || !input.firstName || !input.secondName || !input.email || !input.confirmPassword || !checkNoErrorsRegistration()) {
       setCheckInputsAlert(true)
     } else {
+      setLoading(true)
       await registerUser(input);
+      setLoading(false)
     }
   }
 
@@ -97,8 +105,12 @@ export default function Auth ({ setToken }) {
       }));
   }
 
-  function checkNoErrors() {
+  function checkNoErrorsRegistration() {
     return !error.firstName && !error.secondName && !error.email && !error.password && !error.username && !error.confirmPassword
+  }
+
+  function checkNoErrorsLogin() {
+    return !error.password && !error.username
   }
 
   const onInputChange = e => {
@@ -164,6 +176,7 @@ export default function Auth ({ setToken }) {
   if (authMode === "signin") {
     return (
       <div className="login-page">
+        <LoadingModal loading={loading} />
         <Container>
         {loginFailed===true && 
           <Alert text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
@@ -222,6 +235,7 @@ export default function Auth ({ setToken }) {
 
   return (
     <div className="login-page">
+      <LoadingModal loading={loading} />
       <Container>
       {registerFailed===true && 
         <Alert text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>

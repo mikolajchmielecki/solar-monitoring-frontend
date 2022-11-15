@@ -1,11 +1,11 @@
 import { Form, Button, Card, Container, Modal } from 'react-bootstrap';
-import React, { useState, useEffect } from "react"
-import SpinnerCard from './SpinnerCard';
-import * as Constants from '../constants/constants'
+import React, { useState, useEffect } from "react";
+import * as Constants from '../constants/constants';
 import Alert from './Alert';
+import LoadingModal from './LoadingModal';
 
 export default function User ({token, setToken}) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [savePass, setSavePass] = useState(false);
   const [saveFailed, setSaveFailed] = useState("");
   const [checkInputsAlert, setCheckInputsAlert] = useState(false);
@@ -39,8 +39,8 @@ export default function User ({token, setToken}) {
       }
     })
     .then((response) => {
+      setLoading(false)
       if (response.ok) {
-        setIsLoading(false)
         return response.json();
       }
       return response.json().then((errorObj) => setSaveFailed(errorObj.response));
@@ -57,13 +57,15 @@ export default function User ({token, setToken}) {
       }
     })
     .then((response) => {
+      setLoading(false)
       if (response.ok) {
         setToken("")
       }
       return Promise.reject(response);
     })
     .catch((response) => {
-      console.log("error")
+      setLoading(false)
+      console.log(response)
     });
   }
 
@@ -77,6 +79,7 @@ export default function User ({token, setToken}) {
       body: JSON.stringify(body)
     })
     .then((response) => {
+      setLoading(false)
       if (response.ok) {
         setSavePass(true)
         return
@@ -91,6 +94,7 @@ export default function User ({token, setToken}) {
       const newUser =  await getUser();
       setUser(newUser);
     }
+    setLoading(true)
     fetchData();
   }, []);
 
@@ -108,6 +112,7 @@ export default function User ({token, setToken}) {
   }
 
   const handleDelete = async e => {
+    setLoading(true)
     await deleteUser();
     setShowConfirmation(false)
   }
@@ -126,6 +131,7 @@ export default function User ({token, setToken}) {
         newUser['newPassword'] = user.newPassword
         newUser['oldPassword'] = user.oldPassword
       }
+      setLoading(true)
       const response = await saveUser(newUser)
     }
   }
@@ -199,128 +205,125 @@ export default function User ({token, setToken}) {
     return !error.firstName && !error.secondName && !error.email && !error.newPassword && !error.username && !error.confirmPassword
   }
   
-
-    if (isLoading) {
-      return (
-        <SpinnerCard />
-      )
-    } else {
-      return (
-        <div>
-        <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} animation={true}>
-          <Modal.Header closeButton />
-          <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={() => setShowConfirmation(false)}>
-              Nie
+    return (
+      <div>
+      <LoadingModal loading={loading} />
+      <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} animation={true}>
+        <Modal.Header closeButton />
+        <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowConfirmation(false)}>
+            Nie
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Tak, usuń konto
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Container fluid="md">
+      {saveFailed && 
+        <Alert text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>
+      }
+      {checkInputsAlert===true && 
+        <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+      }
+      {savePass===true && 
+        <Alert text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSavePass(false)}/>
+      }
+      {!loading===true && 
+      <Card className="edit-card shadow">
+        <Card.Header>Użytkownik</Card.Header>
+        <Card.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="firstName">
+              <Form.Label>Imię:</Form.Label>
+              <Form.Control 
+                type="text" 
+                placeholder="Wprowadź imię"
+                name="firstName"
+                value={user.firstName || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}
+              />
+              {error.firstName && <span className='err'>{error.firstName}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="secondName">
+              <Form.Label>Nazwisko:</Form.Label>
+              <Form.Control 
+                type="text" 
+                placeholder="Wprowadź nazwisko" 
+                name="secondName"
+                value={user.secondName || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.secondName && <span className='err'>{error.secondName}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control 
+                type="email" 
+                placeholder="Wprowadź email" 
+                name="email"
+                value={user.email || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.email && <span className='err'>{error.email}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="login">
+              <Form.Label>Login:</Form.Label>
+              <Form.Control 
+                type="text" 
+                placeholder="Wprowadź login" 
+                name="username"
+                value={user.username || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.username && <span className='err'>{error.username}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="oldPassword">
+              <Form.Label>Stare hasło:</Form.Label>
+              <Form.Control 
+                type="password" 
+                placeholder="Wprowadź stare hasło" 
+                name="oldPassword"
+                value={user.oldPassword || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.oldPassword && <span className='err'>{error.oldPassword}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="newPassword">
+              <Form.Label>Nowe hasło:</Form.Label>
+              <Form.Control 
+                type="password" 
+                placeholder="Wprowadź nowe hasło" 
+                name="newPassword"
+                value={user.newPassword || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.newPassword && <span className='err'>{error.newPassword}</span>}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="confirmPassword">
+              <Form.Label>Potwierdź hasło:</Form.Label>
+              <Form.Control 
+                type="password" 
+                placeholder="Potwierdź hasło" 
+                name="confirmPassword"
+                value={user.confirmPassword || ""}
+                onChange={onInputChange}
+                onBlur={validateInput}/>
+                {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
+            </Form.Group>
+            <Button variant="primary" onClick={handleSave}>
+              Zapisz
+            </Button>{' '}
+            <Button variant="danger" onClick={() => setShowConfirmation(true)}>
+              Usuń konto
             </Button>
-            <Button variant="danger" onClick={handleDelete}>
-              Tak, usuń konto
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Container fluid="md">
-        {saveFailed && 
-          <Alert text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>
-        }
-        {checkInputsAlert===true && 
-          <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
-        }
-        {savePass===true && 
-          <Alert text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSavePass(false)}/>
-        }
-        <Card className="edit-card shadow">
-          <Card.Header>Użytkownik</Card.Header>
-          <Card.Body>
-            <Form>
-              <Form.Group className="mb-3" controlId="firstName">
-                <Form.Label>Imię:</Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="Wprowadź imię"
-                  name="firstName"
-                  value={user.firstName || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}
-                />
-                {error.firstName && <span className='err'>{error.firstName}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="secondName">
-                <Form.Label>Nazwisko:</Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="Wprowadź nazwisko" 
-                  name="secondName"
-                  value={user.secondName || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.secondName && <span className='err'>{error.secondName}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email:</Form.Label>
-                <Form.Control 
-                  type="email" 
-                  placeholder="Wprowadź email" 
-                  name="email"
-                  value={user.email || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.email && <span className='err'>{error.email}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="login">
-                <Form.Label>Login:</Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="Wprowadź login" 
-                  name="username"
-                  value={user.username || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.username && <span className='err'>{error.username}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="oldPassword">
-                <Form.Label>Stare hasło:</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Wprowadź stare hasło" 
-                  name="oldPassword"
-                  value={user.oldPassword || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.oldPassword && <span className='err'>{error.oldPassword}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="newPassword">
-                <Form.Label>Nowe hasło:</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Wprowadź nowe hasło" 
-                  name="newPassword"
-                  value={user.newPassword || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.newPassword && <span className='err'>{error.newPassword}</span>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="confirmPassword">
-                <Form.Label>Potwierdź hasło:</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Potwierdź hasło" 
-                  name="confirmPassword"
-                  value={user.confirmPassword || ""}
-                  onChange={onInputChange}
-                  onBlur={validateInput}/>
-                  {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
-              </Form.Group>
-              <Button variant="primary" onClick={handleSave}>
-                Zapisz
-              </Button>{' '}
-              <Button variant="danger" onClick={() => setShowConfirmation(true)}>
-                Usuń konto
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-        </Container>
-        </div>
-    )}
+          </Form>
+        </Card.Body>
+      </Card>
+      }
+      </Container>
+      </div>
+  )
 }

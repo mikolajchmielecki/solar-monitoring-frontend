@@ -1,13 +1,13 @@
 import InverterCard from './InverterCard';
-import { Container, Col, Row } from 'react-bootstrap';
-import SpinnerCard from './SpinnerCard';
+import { Container, Col, Row, Alert } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import * as Constants from '../constants/constants';
+import LoadingModal from './LoadingModal';
 
 
 export default function Inverters ({token}) {
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState("");
   const [inverters, setInverters] = useState();
   async function getInverters() {
@@ -19,8 +19,8 @@ export default function Inverters ({token}) {
       }
     })
     .then((response) => {
+      setLoading(false)
       if (response.ok) {
-        setIsLoading(false)
         return response.json();
       }
       return response.json().then((errorObj) => setFailed(errorObj.response));
@@ -32,6 +32,7 @@ export default function Inverters ({token}) {
       const inverters =  await getInverters();
       setInverters(inverters);
     }
+    setLoading(true)
     fetchData();
   }, []);
 
@@ -46,26 +47,27 @@ export default function Inverters ({token}) {
       "status": "ACTIVE"
     }
   }
-  if (isLoading) {
-    return (
-      <SpinnerCard />
-    )
-  } else if (inverters) {
-    return (
-      <Container>
-      <Row xs={1} md={2} className='justify-content-md-center'>
-        {inverters.map(inverter => 
-          <Col>
-            <InverterCard inverter={inverter}/>
-          </Col>
-          )}
-        
-    </Row>
-    </Container>
-    )
-  } else {
-    return (
-      <Container />
-    )
-  }
+
+  return (
+    <div>
+      {failed && 
+        <Alert text={failed} variant="danger" onClose={() => setFailed("")}/>
+      }
+
+      <LoadingModal loading={loading} />
+      {!loading &&
+      <Container show={inverters}>
+        <Row xs={1} md={2} className='justify-content-md-center'>
+          {inverters!==undefined  && inverters.map(inverter => 
+            <Col>
+              <InverterCard inverter={inverter}/>
+            </Col>
+            )}
+          
+        </Row>
+      </Container>
+      }
+    </div>
+  )
+
 }
