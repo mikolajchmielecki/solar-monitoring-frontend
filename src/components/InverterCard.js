@@ -22,7 +22,7 @@ export default function InverterCard ({id, inverter, handleDelete}) {
               Edytuj
             </Button>
             </Link>{' '}
-            <Button variant="danger" size="sm" onClick={handleDelete}>
+            <Button value={id} variant="danger" size="sm" onClick={handleDelete}>
               Usuń
             </Button>
             </Col>
