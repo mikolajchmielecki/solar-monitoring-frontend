@@ -6,7 +6,7 @@ import LoadingModal from './LoadingModal';
 import Password from './Password';
 
 export default function User ({token, setToken}) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading, loadingModal] = LoadingModal()
   const [savePass, setSavePass] = useState(false);
   const [saveFailed, setSaveFailed] = useState("");
   const [checkInputsAlert, setCheckInputsAlert] = useState(false);
@@ -208,7 +208,7 @@ export default function User ({token, setToken}) {
   
     return (
       <div>
-      <LoadingModal loading={loading} />
+      {loadingModal}
       <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} animation={true}>
         <Modal.Header closeButton />
         <Modal.Body>Czy na pewno chcesz usunąć konto?</Modal.Body>

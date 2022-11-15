@@ -7,7 +7,7 @@ import LoadingModal from './LoadingModal';
 
 export default function Inverters ({token}) {
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading, loadingModal] = LoadingModal()
   const [failed, setFailed] = useState("");
   const [inverters, setInverters] = useState();
   async function getInverters() {
@@ -36,17 +36,6 @@ export default function Inverters ({token}) {
     fetchData();
   }, []);
 
-  const inverter = {
-    "id": 1,
-    "name": "Solax",
-    "beforeEnergy": 1561,
-    "inverterParameters": {
-      "todayYield": 1.3,
-      "totalYield": 1649.5,
-      "currentPower": 0,
-      "status": "ACTIVE"
-    }
-  }
 
   return (
     <div>
@@ -54,12 +43,12 @@ export default function Inverters ({token}) {
         <Alert text={failed} variant="danger" onClose={() => setFailed("")}/>
       }
 
-      <LoadingModal loading={loading} />
+      {loadingModal}
       {!loading &&
       <Container show={inverters}>
         <Row xs={1} md={2} className='justify-content-md-center'>
           {inverters!==undefined  && inverters.map(inverter => 
-            <Col>
+            <Col key={inverter.id}>
               <InverterCard inverter={inverter}/>
             </Col>
             )}

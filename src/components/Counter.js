@@ -1,19 +1,19 @@
-import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import LoadingModal from './LoadingModal';
 import { useState, useEffect } from 'react'; 
 import * as Constants from '../constants/constants';
 import Password from './Password';
+import Alert from './Alert';
 
 export default function Counter ({token}) {
-  
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading, loadingModal] = LoadingModal()
   const [failed, setFailed] = useState("")
   const [counter, setCounter] = useState({
     login: "",
     password: "",
     confirmPassword: ""  
   })
-
+  const [checkInputsAlert, setCheckInputsAlert] = useState(false)
   const [error, setError] = useState({
     login: "",
     password: "",
@@ -41,6 +41,27 @@ export default function Counter ({token}) {
     });
   }
 
+  async function saveCounter(body) {
+    return fetch(Constants.SERVER_URL + 'counter/update', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(body)
+    })
+    .then((response) => {
+      setLoading(false)
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    })
+    .catch((error) => {
+      setFailed("Wystąpił błąd")
+    });
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const counter =  await getCounter();
@@ -49,6 +70,23 @@ export default function Counter ({token}) {
     setLoading(true)
     fetchData();
   }, []);
+
+  function checkNoErrors() {
+    return !error.login && !error.password && !error.confirmPassword
+  }
+
+  const handleSave = async e => {
+    if (!counter.login || !counter.password || !counter.confirmPassword || !checkNoErrors()) {
+      setCheckInputsAlert(true);
+    } else {
+      const newCounter = {
+        login: counter.login,
+        password: counter.password
+      }
+      setLoading(true)
+      const response = await saveCounter(newCounter)
+    }
+  }
 
   const onInputChange = e => {
     const { name, value } = e.target;
@@ -95,12 +133,16 @@ export default function Counter ({token}) {
 
   return (
     <div>
-      {failed && 
-        <Alert text={failed} variant="danger" onClose={() => setError("")}/>
-      }
-      <LoadingModal loading={loading} />
+      
+      {loadingModal}
       {!loading &&
       <Container fluid="md">
+        {failed && 
+          <Alert text={failed} variant="danger" onClose={() => setError("")}/>
+        }
+        {checkInputsAlert && 
+          <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+        }
         <Card className="edit-card shadow">
           <Card.Header>Licznik energii elektrycznej</Card.Header>
           <Card.Body>
@@ -136,7 +178,7 @@ export default function Counter ({token}) {
                   onBlur={validateInput}/>
                 {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" onClick={handleSave}>
                 Zapisz
               </Button>
             </Form>
