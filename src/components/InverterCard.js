@@ -2,6 +2,7 @@ import { Button, Row, Col, Card } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom'
 import * as Constants from '../constants/constants'
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
 export default function InverterCard ({id, inverter, handleDelete}) {
 
@@ -12,18 +13,18 @@ export default function InverterCard ({id, inverter, handleDelete}) {
   const valid = inverter.inverterParameters.status !== "COMMUNICATION_ERROR"
 
     return (
-        <Card style={{minWidth: '20em'}}>
+        <Card style={{minWidth: '23em'}}>
         <Card.Header>
             <Row xs={2} className='align-items-center'>
             <Col>{inverter.name}</Col>
             <Col className="justify-content-end">
             <Link to={"/inverter/"+id} >
             <Button variant="primary" size="sm" >
-              Edytuj
+              Edytuj <AiFillEdit />
             </Button>
             </Link>{' '}
             <Button value={id} variant="danger" size="sm" onClick={handleDelete}>
-              Usuń
+              Usuń <AiFillDelete />
             </Button>
             </Col>
             </Row>
