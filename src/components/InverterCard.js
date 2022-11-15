@@ -1,5 +1,4 @@
-import Card from 'react-bootstrap/Card';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col, Card } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 export default function InverterCard ({inverter}) {
