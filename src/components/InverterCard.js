@@ -1,7 +1,8 @@
 import { Button, Row, Col, Card } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from 'react-router-dom'
 
-export default function InverterCard ({inverter}) {
+export default function InverterCard ({id, inverter}) {
 
   function round(number) {
     return Math.round(number * 100) / 100
@@ -13,9 +14,11 @@ export default function InverterCard ({inverter}) {
             <Row xs={2} className='align-items-center'>
             <Col>{inverter.name}</Col>
             <Col className="justify-content-end">
-            <Button variant="primary" size="sm">
+            <Link to={"/inverter/"+id} >
+            <Button variant="primary" size="sm" >
               Edytuj
-            </Button>{' '}
+            </Button>
+            </Link>{' '}
             <Button variant="danger" size="sm">
               Usuń
             </Button>

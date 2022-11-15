@@ -49,7 +49,7 @@ export default function Inverters ({token}) {
         <Row xs={1} md={2} className='justify-content-md-center'>
           {inverters!==undefined  && inverters.map(inverter => 
             <Col key={inverter.id}>
-              <InverterCard inverter={inverter}/>
+              <InverterCard id={inverter.id} inverter={inverter}/>
             </Col>
             )}
           

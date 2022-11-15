@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import * as Constants from '../constants/constants'
 import Alert from "./Alert"
 import { Container } from "react-bootstrap"
@@ -8,6 +8,12 @@ import Password from "./Password"
 
 
 export default function Auth ({ setToken }) {
+  const [loading, setLoading, loadingModal] = LoadingModal()
+  
+  useEffect(e => {
+    setLoading(false)
+  }, [])
+
   const [authMode, setAuthMode] = useState("signin")
   const [input, setInput] = useState({
     username: '',
@@ -31,7 +37,6 @@ export default function Auth ({ setToken }) {
   const [registerFailed, setRegisterFailed] = useState(false)
   const [registerPass, setRegisterPass] = useState(false)
   const [checkInputsAlert, setCheckInputsAlert] = useState(false)
-  const [loading, setLoading] = useState(false)
 
   function loginUser(credentials) {
     return fetch(Constants.SERVER_URL + 'user/authenticate', {
@@ -177,7 +182,7 @@ export default function Auth ({ setToken }) {
   if (authMode === "signin") {
     return (
       <div className="login-page">
-        <LoadingModal loading={loading} />
+        {loadingModal}
         <Container>
         {loginFailed===true && 
           <Alert text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>

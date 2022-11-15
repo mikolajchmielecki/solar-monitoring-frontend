@@ -21,13 +21,13 @@ export default function App ({token, setToken}) {
             <Container>
             <Navbar.Brand href="about">Solar Monitoring</Navbar.Brand>
             <Nav className="me-auto">
-                <Nav.Link className='nav-item' href="dashboard">Pomiary</Nav.Link>
-                <Nav.Link className='nav-item' href="counter">Licznik</Nav.Link>
+                <Nav.Link className='nav-item' href="/dashboard">Pomiary</Nav.Link>
+                <Nav.Link className='nav-item' href="/counter">Licznik</Nav.Link>
                 <NavDropdown id="nav-dropdown" title="Falowniki">
-                    <NavDropdown.Item href="inverters">Lista falowników</NavDropdown.Item>
-                    <NavDropdown.Item href="add-inverter">Dodaj falownik</NavDropdown.Item>
+                    <NavDropdown.Item href="/inverters">Lista falowników</NavDropdown.Item>
+                    <NavDropdown.Item href="/inverter">Dodaj falownik</NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link className='nav-item' href="user">Użytkownik</Nav.Link>
+                <Nav.Link className='nav-item' href="/user">Użytkownik</Nav.Link>
             </Nav>
             <Nav>
                 <Nav.Link className='nav-item' onClick={() => {setToken("")}}>Wyloguj</Nav.Link>
@@ -40,7 +40,8 @@ export default function App ({token, setToken}) {
             <Route path="/user" element={<User token={token} setToken={setToken}/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/inverters" element={<Inverters token={token}/>} />
-            <Route path="/add-inverter" element={<AddEditInverter/>} />
+            <Route path="/inverter" element={<AddEditInverter/>} />
+            <Route path="/inverter/:id" element={<AddEditInverter/>} />
             <Route path="/counter" element={<Counter token={token}/>} />
         </Routes>
     </div>

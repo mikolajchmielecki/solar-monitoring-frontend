@@ -1,10 +1,11 @@
 import { Form, Button, Card, Container } from 'react-bootstrap';
 import { useState } from "react"
+import { useParams } from 'react-router-dom'
 import * as Constants from '../constants/constants'
 
-export default function AddEditInverter (props) {
+export default function AddEditInverter ({title}) {
 
-  
+  let { id } = useParams();
   const [type, setType] = useState("solax")
 
   function handleTypeChange(e) {
@@ -14,7 +15,7 @@ export default function AddEditInverter (props) {
   return (
     <Container fluid="md">
     <Card className="edit-card shadow">
-      <Card.Header>Dodaj falownik</Card.Header>
+      <Card.Header>{id ? "Zmień parametry falownika" : "Dodaj falownik"}</Card.Header>
       <Card.Body>
         <Form>
           <Form.Group className="mb-3" controlId="name">
@@ -53,7 +54,7 @@ export default function AddEditInverter (props) {
             </div>
           }
           <Button variant="primary" type="submit">
-            Zapisz
+            {id ? "Zapisz" : "Dodaj"}
           </Button>
         </Form>
       </Card.Body>
