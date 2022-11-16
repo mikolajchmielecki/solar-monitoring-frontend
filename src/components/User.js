@@ -67,7 +67,6 @@ export default function User ({token, setToken}) {
     })
     .catch((response) => {
       setLoading(false)
-      console.log(response)
     });
   }
 

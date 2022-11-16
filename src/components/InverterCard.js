@@ -13,18 +13,20 @@ export default function InverterCard ({id, inverter, handleDelete}) {
   const valid = inverter.inverterParameters.status !== "COMMUNICATION_ERROR"
 
     return (
-        <Card style={{minWidth: '23em'}}>
+        <Card style={{minWidth: '20em'}}>
         <Card.Header>
-            <Row xs={2} className='align-items-center'>
+            <Row className='align-items-center'>
             <Col>{inverter.name}</Col>
-            <Col className="justify-content-end">
+            <Col className=" text-nowrap" style={{ textAlign: "right" }} >
+            
             <Link to={"/inverter/"+id} >
             <Button variant="primary" size="sm" >
-              Edytuj <AiFillEdit />
+              <AiFillEdit />
             </Button>
-            </Link>{' '}
+            </Link>
+            <span> </span>
             <Button value={id} variant="danger" size="sm" onClick={handleDelete}>
-              Usuń <AiFillDelete />
+              <AiFillDelete />
             </Button>
             </Col>
             </Row>
