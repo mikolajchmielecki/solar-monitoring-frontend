@@ -24,7 +24,7 @@ export default function (props) {
       colors: ['transparent']
     },
     xaxis: {
-      categories: ['St', 'Lt', 'Mrz', 'Kw', 'Mj', 'Czrw', 'Lp', 'Sp', 'Wrz', 'Prn', 'Lst', 'Gr'],
+      categories: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
     },
     yaxis: {
       title: {
