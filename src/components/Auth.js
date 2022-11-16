@@ -313,28 +313,22 @@ export default function Auth ({ setToken }) {
             </div>
             <div className="form-group mt-3">
               <label>Hasło:</label>
-              <input
-                type="password"
-                className="form-control mt-1"
+              <Password
                 placeholder="Wpisz hasło"
                 name="password"
                 value={input.password}
                 onChange={onInputChange}
-                onBlur={validateInput}>
-              </input>
+                onBlur={validateInput} />
               {error.password && <span className='err'>{error.password}</span>}
             </div>
             <div className="form-group mt-3">
               <label>Potwierdź hasło:</label>
-              <input
-                type="password"
-                className="form-control mt-1"
+              <Password
                 placeholder="Powierdź hasło"
                 name="confirmPassword"
                 value={input.confirmPassword}
                 onChange={onInputChange}
-                onBlur={validateInput}>
-              </input>
+                onBlur={validateInput} />
               {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
             </div>
             <div className="d-grid gap-2 mt-3">
