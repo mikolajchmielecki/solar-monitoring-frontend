@@ -5,6 +5,7 @@ import AlertInCorner from './AlertInCorner';
 import LoadingModal from './LoadingModal';
 import Password from './Password';
 import ConfirmDelete from './ConfirmDelete';
+import { AiOutlineSave, AiFillDelete } from 'react-icons/ai';
 
 export default function User ({token, setToken}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
@@ -300,10 +301,10 @@ export default function User ({token, setToken}) {
                 {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
             </Form.Group>
             <Button variant="primary" onClick={handleSave}>
-              Zapisz
+              Zapisz <AiOutlineSave/>
             </Button>{' '}
             <Button variant="danger" onClick={() => setShowConfirmation(true)}>
-              Usuń konto
+              Usuń konto <AiFillDelete/>
             </Button>
           </Form>
         </Card.Body>

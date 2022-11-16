@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import * as Constants from '../constants/constants';
 import Password from './Password';
 import AlertInCorner from './AlertInCorner';
+import { AiOutlineSave } from 'react-icons/ai'
 
 export default function Counter ({token}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
@@ -179,7 +180,7 @@ export default function Counter ({token}) {
                 {error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
               </Form.Group>
               <Button variant="primary" onClick={handleSave}>
-                Zapisz
+                Zapisz <AiOutlineSave/>
               </Button>
             </Form>
           </Card.Body>

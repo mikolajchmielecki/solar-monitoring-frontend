@@ -5,6 +5,7 @@ import * as Constants from '../constants/constants'
 import LoadingModal from './LoadingModal';
 import AlertInCorner from './AlertInCorner';
 import { useNavigate } from "react-router-dom";
+import { AiOutlineSave } from 'react-icons/ai'
 
 export default function AddEditInverter ({token}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
@@ -291,7 +292,7 @@ export default function AddEditInverter ({token}) {
               </div>
             }
             <Button variant="primary" onClick={handleSave}>
-              {id ? "Zapisz" : "Dodaj"}
+              {id ? "Zapisz" : "Dodaj"} <AiOutlineSave/>
             </Button>
           </Form>
         </Card.Body>
