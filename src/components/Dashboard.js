@@ -1,7 +1,7 @@
 import ReactApexChart from "react-apexcharts"
 import { Container, Card } from "react-bootstrap"
 
-export default function (props) {
+export default function Dashboard (props) {
 
   const options = {
     chart: {

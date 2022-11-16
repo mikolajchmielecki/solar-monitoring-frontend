@@ -1,7 +1,7 @@
-import { Form, Button, Card, Container, Modal } from 'react-bootstrap';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import * as Constants from '../constants/constants';
-import Alert from './Alert';
+import AlertInCorner from './AlertInCorner';
 import LoadingModal from './LoadingModal';
 import Password from './Password';
 import ConfirmDelete from './ConfirmDelete';
@@ -10,7 +10,7 @@ export default function User ({token, setToken}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
   const [savePass, setSavePass] = useState(false);
   const [saveFailed, setSaveFailed] = useState("");
-  const [checkInputsAlert, setCheckInputsAlert] = useState(false);
+  const [checkInputsAlertInCorner, setCheckInputsAlertInCorner] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [user, setUser] = useState({
     username: '',
@@ -97,7 +97,7 @@ export default function User ({token, setToken}) {
     }
     setLoading(true)
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onInputChange = e => {
     const { name, value } = e.target;
@@ -108,10 +108,6 @@ export default function User ({token, setToken}) {
     validateInput(e)
   }
 
-  function checkNoErrors() {
-    return !error.firstName && !error.secondName && !error.email && !error.newPassword && !error.username
-  }
-
   const handleDelete = async e => {
     setLoading(true)
     await deleteUser();
@@ -120,7 +116,7 @@ export default function User ({token, setToken}) {
 
   const handleSave = async e => {
     if (!user.username || !user.firstName || !user.secondName || !user.email || !checkNoErrors() || (user.newPassword && !user.confirmPassword)) {
-      setCheckInputsAlert(true);
+      setCheckInputsAlertInCorner(true);
     } else {
       const newUser = {
         username: user.username,
@@ -133,7 +129,7 @@ export default function User ({token, setToken}) {
         newUser['oldPassword'] = user.oldPassword
       }
       setLoading(true)
-      const response = await saveUser(newUser)
+      await saveUser(newUser)
     }
   }
 
@@ -212,13 +208,13 @@ export default function User ({token, setToken}) {
       <ConfirmDelete showConfirmation={showConfirmation} setShowConfirmation={setShowConfirmation} handleDelete={handleDelete} name="konto"/>
       <Container fluid="md">
       {saveFailed && 
-        <Alert text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>
+        <AlertInCorner text={saveFailed} variant="danger" onClose={() => setSaveFailed("")}/>
       }
-      {checkInputsAlert===true && 
-        <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+      {checkInputsAlertInCorner===true && 
+        <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
       }
       {savePass===true && 
-        <Alert text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSavePass(false)}/>
+        <AlertInCorner text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSavePass(false)}/>
       }
       {!loading===true && 
       <Card className="edit-card shadow">

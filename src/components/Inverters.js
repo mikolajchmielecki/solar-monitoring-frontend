@@ -3,7 +3,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import * as Constants from '../constants/constants';
 import LoadingModal from './LoadingModal';
-import Alert from './Alert';
+import AlertInCorner from './AlertInCorner';
 import ConfirmDelete from './ConfirmDelete';
 
 export default function Inverters ({token}) {
@@ -58,13 +58,13 @@ export default function Inverters ({token}) {
     }
     setLoading(true)
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const handleDelete = async e => {
     setShowConfirmation(false)
     setLoading(true)
-    const response = await deleteInverter(id)
+    await deleteInverter(id)
     const fetchData = async () => {
       const inverters =  await getInverters();
       setInverters(inverters);
@@ -78,10 +78,10 @@ export default function Inverters ({token}) {
   return (
     <div>
       {failed && 
-        <Alert text={failed} variant="danger" onClose={() => setFailed("")}/>
+        <AlertInCorner text={failed} variant="danger" onClose={() => setFailed("")}/>
       }
       {deleteSuccess && 
-        <Alert text="Falownik został usunięty pomyślnie" variant="success" onClose={() => setDeleteSuccess("")}/>
+        <AlertInCorner text="Falownik został usunięty pomyślnie" variant="success" onClose={() => setDeleteSuccess("")}/>
       }
 
       {loadingModal}

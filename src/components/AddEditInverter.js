@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import * as Constants from '../constants/constants'
 import LoadingModal from './LoadingModal';
-import Alert from './Alert';
+import AlertInCorner from './AlertInCorner';
 import { useNavigate } from "react-router-dom";
 
 export default function AddEditInverter ({token}) {
@@ -99,7 +99,7 @@ export default function AddEditInverter ({token}) {
   } else {
     setLoading(false)
   }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const onInputChange = e => {
@@ -119,27 +119,27 @@ export default function AddEditInverter ({token}) {
 
   const handleSave = async e => {
     if (!inverter.name || 
-        (inverter.type==Constants.InverterType.SolarEdge && (!inverter.credentials.apiKey || !inverter.credentials.siteId)) || 
-        (inverter.type==Constants.InverterType.Solax && (!inverter.credentials.tokenId || !inverter.credentials.serialNumber))) {
+        (inverter.type===Constants.InverterType.SolarEdge && (!inverter.credentials.apiKey || !inverter.credentials.siteId)) || 
+        (inverter.type===Constants.InverterType.Solax && (!inverter.credentials.tokenId || !inverter.credentials.serialNumber))) {
       setCheckInputsAlert(true);
     } else {
       const result = {
         id: id,
         name: inverter.name,
       }
-      if (inverter.type==Constants.InverterType.SolarEdge) {
+      if (inverter.type===Constants.InverterType.SolarEdge) {
         result.apiKey = inverter.credentials.apiKey
         result.siteId = inverter.credentials.siteId
-      } if (inverter.type==Constants.InverterType.Solax) {
+      } if (inverter.type===Constants.InverterType.Solax) {
         result.tokenId = inverter.credentials.tokenId
         result.serialNumber = inverter.credentials.serialNumber
       }
       if (id) {
         setLoading(true)
-        const response = await updateInverter(result)
+        await updateInverter(result)
       } else {
         setLoading(true)
-        const response = await addInverter(result)
+        await addInverter(result)
       }
       await sleep(1000);
       navigate("/inverters");
@@ -201,13 +201,13 @@ export default function AddEditInverter ({token}) {
       {loadingModal}
       <Container fluid="md">
       {failed && 
-        <Alert text={failed} variant="danger" onClose={() => setFailed("")}/>
+        <AlertInCorner text={failed} variant="danger" onClose={() => setFailed("")}/>
       }
       {checkInputsAlert && 
-          <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+          <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
       }
       {success===true && 
-        <Alert text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSuccess(false)}/>
+        <AlertInCorner text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSuccess(false)}/>
       }
       {!loading &&
       <Card className="edit-card shadow">

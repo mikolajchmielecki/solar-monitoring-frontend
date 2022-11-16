@@ -3,7 +3,7 @@ import LoadingModal from './LoadingModal';
 import { useState, useEffect } from 'react'; 
 import * as Constants from '../constants/constants';
 import Password from './Password';
-import Alert from './Alert';
+import AlertInCorner from './AlertInCorner';
 
 export default function Counter ({token}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
@@ -13,7 +13,7 @@ export default function Counter ({token}) {
     password: "",
     confirmPassword: ""  
   })
-  const [checkInputsAlert, setCheckInputsAlert] = useState(false)
+  const [checkInputsAlertInCorner, setCheckInputsAlertInCorner] = useState(false)
   const [error, setError] = useState({
     login: "",
     password: "",
@@ -69,7 +69,7 @@ export default function Counter ({token}) {
     }
     setLoading(true)
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function checkNoErrors() {
     return !error.login && !error.password && !error.confirmPassword
@@ -77,14 +77,14 @@ export default function Counter ({token}) {
 
   const handleSave = async e => {
     if (!counter.login || !counter.password || !counter.confirmPassword || !checkNoErrors()) {
-      setCheckInputsAlert(true);
+      setCheckInputsAlertInCorner(true);
     } else {
       const newCounter = {
         login: counter.login,
         password: counter.password
       }
       setLoading(true)
-      const response = await saveCounter(newCounter)
+      await saveCounter(newCounter)
     }
   }
 
@@ -138,10 +138,10 @@ export default function Counter ({token}) {
       {!loading &&
       <Container fluid="md">
         {failed && 
-          <Alert text={failed} variant="danger" onClose={() => setError("")}/>
+          <AlertInCorner text={failed} variant="danger" onClose={() => setError("")}/>
         }
-        {checkInputsAlert && 
-          <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+        {checkInputsAlertInCorner && 
+          <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
         }
         <Card className="edit-card shadow">
           <Card.Header>Licznik energii elektrycznej</Card.Header>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const getItem = key =>
     document.cookie.split("; ").reduce((total, currentCookie) => {

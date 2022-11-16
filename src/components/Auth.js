@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import * as Constants from '../constants/constants'
-import Alert from "./Alert"
+import AlertInCorner from "./AlertInCorner"
 import { Container } from "react-bootstrap"
 import LoadingModal from "./LoadingModal"
 import Password from "./Password"
@@ -8,11 +8,11 @@ import Password from "./Password"
 
 
 export default function Auth ({ setToken }) {
-  const [loading, setLoading, loadingModal] = LoadingModal()
+  const [, setLoading, loadingModal] = LoadingModal()
   
   useEffect(e => {
     setLoading(false)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const [authMode, setAuthMode] = useState("signin")
   const [input, setInput] = useState({
@@ -36,7 +36,7 @@ export default function Auth ({ setToken }) {
   const [loginFailed, setLoginFailed] = useState(false)
   const [registerFailed, setRegisterFailed] = useState(false)
   const [registerPass, setRegisterPass] = useState(false)
-  const [checkInputsAlert, setCheckInputsAlert] = useState(false)
+  const [checkInputsAlertInCorner, setCheckInputsAlertInCorner] = useState(false)
 
   function loginUser(credentials) {
     return fetch(Constants.SERVER_URL + 'user/authenticate', {
@@ -82,7 +82,7 @@ export default function Auth ({ setToken }) {
   const handleSubmit = async e => {
     e.preventDefault();
     if (!input.username || !input.password || !checkNoErrorsLogin()) {
-      setCheckInputsAlert(true)
+      setCheckInputsAlertInCorner(true)
     } else {
       setLoading(true)
       const response = await loginUser(input, setLoginFailed);
@@ -94,7 +94,7 @@ export default function Auth ({ setToken }) {
   const handleRegistrationSubmit = async e => {
     e.preventDefault();
     if (!input.username || !input.password || !input.firstName || !input.secondName || !input.email || !input.confirmPassword || !checkNoErrorsRegistration()) {
-      setCheckInputsAlert(true)
+      setCheckInputsAlertInCorner(true)
     } else {
       setLoading(true)
       await registerUser(input);
@@ -185,10 +185,10 @@ export default function Auth ({ setToken }) {
         {loadingModal}
         <Container>
         {loginFailed===true && 
-          <Alert text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
+          <AlertInCorner text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
         }
-        {checkInputsAlert===true && 
-        <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+        {checkInputsAlertInCorner===true && 
+        <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
         }
         <div className="Auth-form-container">
           <form className="Auth-form" onSubmit={handleSubmit}>
@@ -241,13 +241,13 @@ export default function Auth ({ setToken }) {
       {loadingModal}
       <Container>
       {registerFailed===true && 
-        <Alert text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
+        <AlertInCorner text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
       }
       {registerPass===true && 
-        <Alert text="Rejstracja przebiegła pomyślnie" variant="success" onClose={() => setRegisterPass(false)}/>
+        <AlertInCorner text="Rejstracja przebiegła pomyślnie" variant="success" onClose={() => setRegisterPass(false)}/>
       }
-      {checkInputsAlert===true && 
-        <Alert text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlert(false)}/>
+      {checkInputsAlertInCorner===true && 
+        <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
       }
       <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={handleRegistrationSubmit}>
