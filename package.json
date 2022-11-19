@@ -18,8 +18,8 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "export HTTPS=true&&SSL_CRT_FILE=cert.pem&&SSL_KEY_FILE=key.pem&&react-scripts start",
-    "start_local": "set HTTPS=true&&set SSL_CRT_FILE=cert.pem&&set SSL_KEY_FILE=key.pem&&react-scripts start",
+    "start": "export HTTPS=true&&SSL_CRT_FILE=cert/cert.pem&&SSL_KEY_FILE=cert/key.pem&&react-scripts start",
+    "start_local": "set HTTPS=true&&set SSL_CRT_FILE=cert/cert.pem&&set SSL_KEY_FILE=cert/key.pem&&react-scripts start",
     "prestart": "rm ./node_modules/webpack-dev-server/ssl/server.pem && cp -f ./cert/server.pem ./node_modules/webpack-dev-server/ssl",
     "build": "react-scripts build",
     "test": "react-scripts test",
