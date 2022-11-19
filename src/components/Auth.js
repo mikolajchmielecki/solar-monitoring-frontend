@@ -53,6 +53,7 @@ export default function Auth ({ setToken }) {
       return Promise.reject(response);
     })
     .catch((response) => {
+      console.log(response)
       setLoginFailed(true)
       setLoading(false)
     });

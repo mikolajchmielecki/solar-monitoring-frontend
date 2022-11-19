@@ -46,7 +46,7 @@ export default function Dashboard ({token}) {
     }, 1000);
     
     return () => clearTimeout(timer);
-  }, [year]);
+  }, [year]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const options = {
     chart: {
@@ -85,19 +85,6 @@ export default function Dashboard ({token}) {
           return val + " kWh"
         }
       }
-    }
-  }
-
-  const noData = {
-    text: undefined,
-    align: 'center',
-    verticalAlign: 'middle',
-    offsetX: 0,
-    offsetY: 0,
-    style: {
-      color: undefined,
-      fontSize: '14px',
-      fontFamily: undefined
     }
   }
 
