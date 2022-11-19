@@ -184,13 +184,13 @@ export default function Auth ({ setToken }) {
     return (
       <div className="login-page">
         {loadingModal}
-        <Container>
         {loginFailed===true && 
           <AlertInCorner text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
         }
         {checkInputsAlertInCorner===true && 
         <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
         }
+        <Container>
         <div className="Auth-form-container">
           <form className="Auth-form" onSubmit={handleSubmit}>
             <div className="Auth-form-content">
@@ -240,7 +240,6 @@ export default function Auth ({ setToken }) {
   return (
     <div className="login-page">
       {loadingModal}
-      <Container>
       {registerFailed===true && 
         <AlertInCorner text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
       }
@@ -250,6 +249,7 @@ export default function Auth ({ setToken }) {
       {checkInputsAlertInCorner===true && 
         <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
       }
+      <Container>
       <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={handleRegistrationSubmit}>
           <div className="Auth-form-content">
