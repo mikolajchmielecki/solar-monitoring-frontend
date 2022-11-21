@@ -9,6 +9,7 @@ import { AiOutlineSave } from 'react-icons/ai'
 export default function Counter ({token}) {
   const [loading, setLoading, loadingModal] = LoadingModal()
   const [failed, setFailed] = useState("")
+  const [success, setSuccess] = useState(false)
   const [counter, setCounter] = useState({
     login: "",
     password: "",
@@ -54,6 +55,7 @@ export default function Counter ({token}) {
     .then((response) => {
       setLoading(false)
       if (response.ok) {
+        setSuccess(true)
         return response.json();
       }
       return Promise.reject(response);
@@ -140,6 +142,9 @@ export default function Counter ({token}) {
       <Container fluid="md">
         {failed && 
           <AlertInCorner text={failed} variant="danger" onClose={() => setError("")}/>
+        }
+        {success && 
+          <AlertInCorner text="Zmiany zostały zapisane pomyślnie" variant="success" onClose={() => setSuccess(false)}/>
         }
         {checkInputsAlertInCorner && 
           <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
