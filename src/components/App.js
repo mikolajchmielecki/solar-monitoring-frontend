@@ -21,9 +21,11 @@ export default function App ({token, setToken}) {
 
     return (
     <div className="content">
-        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+        <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
             <Container>
             <Navbar.Brand href="about">Solar Monitoring</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
                 <Nav.Link className='nav-item' href="/dashboard">Pomiary <AiOutlineHistory/></Nav.Link>
                 <Nav.Link className='nav-item' href="/counter">Licznik <BsFillCalculatorFill/></Nav.Link>
@@ -36,6 +38,7 @@ export default function App ({token, setToken}) {
             <Nav>
                 <Nav.Link className='nav-item' onClick={() => {setToken("")}}>Wyloguj <MdOutlineLogout/></Nav.Link>
             </Nav>
+            </Navbar.Collapse>
             </Container>
         </Navbar>
         <Routes>
