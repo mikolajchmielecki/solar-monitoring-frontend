@@ -4,6 +4,7 @@ import AlertInCorner from "./AlertInCorner"
 import { Container } from "react-bootstrap"
 import LoadingModal from "./LoadingModal"
 import Password from "./Password"
+import CookieConsent from "react-cookie-consent";
 
 
 
@@ -179,11 +180,22 @@ export default function Auth ({ setToken }) {
       return stateObj;
     });
   }
- 
+  const acceptButton = (<button type="submit" className="btn btn-primary">
+  Zaloguj się
+</button>)
+
   if (authMode === "signin") {
     return (
       <div className="login-page">
         {loadingModal}
+        <CookieConsent
+          location="bottom"
+          buttonText="Zgadzam się"
+          cookieName="myAwesomeCookieName2"
+          style={{ background: "#fff", color: "#000" }}
+          buttonStyle={{ background: "#0d6efd", color: "#fff", "border-radius": "0.375rem", fontSize: "13px" }}
+          expires={150}
+        >Ta strona używa plików cookies.</CookieConsent>
         {loginFailed===true && 
           <AlertInCorner text="Niepoprawne logowanie" variant="danger" onClose={() => setLoginFailed(false)}/>
         }
