@@ -253,7 +253,7 @@ export default function Auth ({ setToken }) {
         <AlertInCorner text="Niepoprawna rejestracja" variant="danger" onClose={() => setRegisterFailed(false)}/>
       }
       {registerPass===true && 
-        <AlertInCorner text="Rejstracja przebiegła pomyślnie" variant="success" onClose={() => setRegisterPass(false)}/>
+        <AlertInCorner text="Rejestracja przebiegła pomyślnie" variant="success" onClose={() => setRegisterPass(false)}/>
       }
       {checkInputsAlertInCorner===true && 
         <AlertInCorner text="Sprawdź formularz" variant="warning" onClose={() => setCheckInputsAlertInCorner(false)}/>
