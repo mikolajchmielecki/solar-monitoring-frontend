@@ -180,9 +180,6 @@ export default function Auth ({ setToken }) {
       return stateObj;
     });
   }
-  const acceptButton = (<button type="submit" className="btn btn-primary">
-  Zaloguj się
-</button>)
 
   if (authMode === "signin") {
     return (
