@@ -232,7 +232,7 @@ export default function AddEditInverter ({token}) {
         <Card.Body>
           <Form>
             <Form.Group className="mb-3" controlId="name">
-              <Form.Label>Nazwa:</Form.Label>
+              <Form.Label>Nazwa: *</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder="Wprowadź nazwę" 
@@ -256,7 +256,7 @@ export default function AddEditInverter ({token}) {
             {inverter.type === Constants.InverterType.Solax &&
               <div>
               <Form.Group className="mb-3" controlId="serialNumber">
-                <Form.Label>Numer seryjny:</Form.Label>
+                <Form.Label>Numer seryjny: *</Form.Label>
                 <Form.Control
                   type="text" 
                   placeholder="Wprowadź numer seryjny" 
@@ -268,7 +268,7 @@ export default function AddEditInverter ({token}) {
 
               </Form.Group>
               <Form.Group className="mb-3" controlId="tokenId">
-                <Form.Label>Token id:</Form.Label>
+                <Form.Label>Token id: *</Form.Label>
                 <Form.Control 
                   type="text" 
                   placeholder="Wprowadź token id" 
@@ -283,7 +283,7 @@ export default function AddEditInverter ({token}) {
             {inverter.type === Constants.InverterType.SolarEdge &&
               <div>
               <Form.Group className="mb-3" controlId="apiKey">
-                <Form.Label>Api key:</Form.Label>
+                <Form.Label>Api key: *</Form.Label>
                 <Form.Control
                   type="text" 
                   placeholder="Wprowadź API key" 
@@ -295,7 +295,7 @@ export default function AddEditInverter ({token}) {
 
               </Form.Group>
               <Form.Group className="mb-3" controlId="siteId">
-                <Form.Label>Site id:</Form.Label>
+                <Form.Label>Site id: *</Form.Label>
                 <Form.Control
                   type="text" 
                   placeholder="Wprowadź site id" 

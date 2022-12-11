@@ -172,7 +172,7 @@ export default function Counter ({token}) {
           <Card.Body>
             <Form>
               <Form.Group className="mb-3" controlId="login">
-                <Form.Label>Login:</Form.Label>
+                <Form.Label>Login: *</Form.Label>
                 <Form.Control
                   type="text" 
                   placeholder="Wprowadź login" 
@@ -183,7 +183,7 @@ export default function Counter ({token}) {
                 {error.login && <span className='err'>{error.login}</span>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="password">
-                <Form.Label>Hasło:</Form.Label>
+                <Form.Label>Hasło: *</Form.Label>
                 <Password
                   placeholder="Wprowadź hasło" 
                   name="password"
@@ -193,7 +193,7 @@ export default function Counter ({token}) {
                 {error.password && <span className='err'>{error.password}</span>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="confirmPassword">
-                <Form.Label>Potwierdź hasło:</Form.Label>
+                <Form.Label>Potwierdź hasło: *</Form.Label>
                 <Password 
                   placeholder="Wprowadź hasło" 
                   name="confirmPassword"

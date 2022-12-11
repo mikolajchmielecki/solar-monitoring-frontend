@@ -239,7 +239,7 @@ export default function User ({token, setToken}) {
         <Card.Body>
           <Form>
             <Form.Group className="mb-3" controlId="firstName">
-              <Form.Label>Imię:</Form.Label>
+              <Form.Label>Imię: *</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder="Wprowadź imię"
@@ -251,7 +251,7 @@ export default function User ({token, setToken}) {
               {error.firstName && <span className='err'>{error.firstName}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="secondName">
-              <Form.Label>Nazwisko:</Form.Label>
+              <Form.Label>Nazwisko: *</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder="Wprowadź nazwisko" 
@@ -262,7 +262,7 @@ export default function User ({token, setToken}) {
                 {error.secondName && <span className='err'>{error.secondName}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Email:</Form.Label>
+              <Form.Label>Email: *</Form.Label>
               <Form.Control 
                 type="email" 
                 placeholder="Wprowadź email" 
@@ -273,7 +273,7 @@ export default function User ({token, setToken}) {
                 {error.email && <span className='err'>{error.email}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="login">
-              <Form.Label>Login:</Form.Label>
+              <Form.Label>Login: *</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder="Wprowadź login" 

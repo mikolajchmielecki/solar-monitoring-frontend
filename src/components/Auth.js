@@ -227,7 +227,7 @@ export default function Auth ({ setToken }) {
                 </span>
               </div>
               <div className="form-group mt-3">
-                <label>Login:</label>
+                <label>Login: *</label>
                 <input
                   type="text"
                   className="form-control mt-1"
@@ -240,7 +240,7 @@ export default function Auth ({ setToken }) {
                 {error.username && <span className='err'>{error.username}</span>}
               </div>
               <div className="form-group mt-3">
-                <label>Hasło:</label>
+                <label>Hasło: *</label>
                 <Password
                   placeholder="Wpisz hasło"
                   value={input.password}
@@ -286,7 +286,7 @@ export default function Auth ({ setToken }) {
               </span>
             </div>
             <div className="form-group mt-3">
-              <label>Imię:</label>
+              <label>Imię: *</label>
               <input
                 type="text"
                 className="form-control mt-1"
@@ -299,7 +299,7 @@ export default function Auth ({ setToken }) {
               {error.firstName && <span className='err'>{error.firstName}</span>}
             </div>
             <div className="form-group mt-3">
-              <label>Nazwisko:</label>
+              <label>Nazwisko: *</label>
               <input
                 type="text"
                 className="form-control mt-1"
@@ -312,7 +312,7 @@ export default function Auth ({ setToken }) {
               {error.secondName && <span className='err'>{error.secondName}</span>}
             </div>
             <div className="form-group mt-3">
-              <label>Email:</label>
+              <label>Email: *</label>
               <input
                 type="email"
                 className="form-control mt-1"
@@ -325,7 +325,7 @@ export default function Auth ({ setToken }) {
               {error.email && <span className='err'>{error.email}</span>}
             </div>
             <div className="form-group mt-3">
-              <label>Login:</label>
+              <label>Login: *</label>
               <input
                 type="text"
                 className="form-control mt-1"
@@ -338,7 +338,7 @@ export default function Auth ({ setToken }) {
               {error.username && <span className='err'>{error.username}</span>}
             </div>
             <div className="form-group mt-3">
-              <label>Hasło:</label>
+              <label>Hasło: *</label>
               <Password
                 placeholder="Wpisz hasło"
                 name="password"
@@ -348,7 +348,7 @@ export default function Auth ({ setToken }) {
               {error.password && <span className='err'>{error.password}</span>}
             </div>
             <div className="form-group mt-3">
-              <label>Potwierdź hasło:</label>
+              <label>Potwierdź hasło: *</label>
               <Password
                 placeholder="Powierdź hasło"
                 name="confirmPassword"
