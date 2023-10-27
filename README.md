@@ -1,1 +1,1 @@
-[embed]./Dyplom.pdf[/embed]
+[Praca dyplomowa](./Dyplom.pdf)
